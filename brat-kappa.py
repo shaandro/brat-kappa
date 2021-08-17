@@ -30,11 +30,12 @@ def cohen_kappa(matrix: pd.DataFrame):
     total = matrix.sum()
 
     # create expected frequency matrix
-    ef_matrix = matrix
-    for i in range(matrix.shape[0]):  # ith row
-        for j in range(matrix.shape[1]):  # jth column
-            ef = row_totals[i] * col_totals[j] / total
-            ef_matrix[i, j] = ef
+    # ef_matrix = matrix.copy()
+    # for i in range(matrix.shape[0]):  # ith row
+    #     for j in range(matrix.shape[1]):  # jth column
+    #         ef = row_totals[i] * col_totals[j] / total
+    #         ef_matrix[i, j] = ef
+    ef_matrix = np.outer(row_totals, col_totals) / total
 
     # compute the total number of expected agreements
     e_agreements = np.trace(ef_matrix)
@@ -73,6 +74,7 @@ def cohen_kappa_dataset(anno_1: str, anno_2: str):
     kappa = cohen_kappa(matrix)
 
     print("Cohen's kappa: ", kappa)
+    return kappa
 
 
 # define directories
