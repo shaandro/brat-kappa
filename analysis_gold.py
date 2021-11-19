@@ -76,74 +76,25 @@ def cohen_kappa_dataset(anno_1: str, anno_2: str):
     # print("Cohen's kappa: ", kappa)
     return kappa
 
-categories = ["consult", "pharmacy", "discharge_summary", "general", "nursing", "physician"]
-x = range(1,8)
+# Analysis
 
-jen_gold = pd.DataFrame(np.zeros((6, 13)), index=categories, columns=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'])
+gold_kappa = pd.DataFrame(np.zeros((13, 3)), index = range(1, 14), columns=['jenny', 'jessica', 'adjudication'])
 
-for i in categories[2:]:
-    for j in range(1,14):
-        anno_1 = "./jenny/round_" + str(j) + "/" + i
-        anno_2 = "./gold/round_" + str(j) + "/" + i
-        jen_jes.loc[i].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
+for i in range(1, 14):
+    anno_1 = "./jen2/round_" + str(i)
+    anno_2 = "./gold/round_" + str(i)
+    gold_kappa.loc[i].iloc[0] = cohen_kappa_dataset(anno_1, anno_2)
 
-for j in range(1,4):
-    anno_1 = "./jenny/round_" + str(j) + "/consult"
-    anno_2 = "./gold/round_" + str(j) + "/consult"
-    jen_jes.loc["consult"].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
+for i in range(1, 14):
+    anno_1 = "./jes2/round_" + str(i)
+    anno_2 = "./gold/round_" + str(i)
+    gold_kappa.loc[i].iloc[1] = cohen_kappa_dataset(anno_1, anno_2)
 
-for j in range(1,9):
-    anno_1 = "./jenny/round_" + str(j) + "/pharmacy"
-    anno_2 = "./gold/round_" + str(j) + "/pharmacy"
-    jen_jes.loc["pharmacy"].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
+for i in range(1, 14):
+    anno_1 = "./adj2/round_" + str(i)
+    anno_2 = "./gold/round_" + str(i)
+    gold_kappa.loc[i].iloc[2] = cohen_kappa_dataset(anno_1, anno_2)
 
-print(jen_gold)
+print(gold_kappa)
 
-# had to remove "T85" from "adjudication/round_11/physician/54675_168205_571097_1.ann"
-# and "adjudication/round_10/general/32511_166843_469604_1.ann"
-
-jes_gold = pd.DataFrame(np.zeros((6, 13)), index=categories, columns=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'])
-
-for i in categories[2:]:
-    for j in range(1,14):
-        anno_1 = "./jessica/round_" + str(j) + "/" + i
-        anno_2 = "./gold/round_" + str(j) + "/" + i
-        jen_adj.loc[i].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
-
-for j in range(1,4):
-    anno_1 = "./jessica/round_" + str(j) + "/consult"
-    anno_2 = "./gold/round_" + str(j) + "/consult"
-    jen_adj.loc["consult"].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
-
-for j in range(1,9):
-    anno_1 = "./jessica/round_" + str(j) + "/pharmacy"
-    anno_2 = "./gold/round_" + str(j) + "/pharmacy"
-    jen_adj.loc["pharmacy"].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
-
-print(jes_gold)
-
-# had to remove "T130" from "./adjudication/round_3/discharge_summary/200_02.ann"
-
-adj_gold = pd.DataFrame(np.zeros((6, 13)), index=categories, columns=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'])
-
-for i in categories[2:]:
-    for j in range(1,14):
-        anno_1 = "./adjudication/round_" + str(j) + "/" + i
-        anno_2 = "./gold/round_" + str(j) + "/" + i
-        jes_adj.loc[i].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
-
-for j in range(1,4):
-    anno_1 = "./adjudication/round_" + str(j) + "/consult"
-    anno_2 = "./gold/round_" + str(j) + "/consult"
-    jes_adj.loc["consult"].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
-
-for j in range(1,9):
-    anno_1 = "./adjudication/round_" + str(j) + "/pharmacy"
-    anno_2 = "./gold/round_" + str(j) + "/pharmacy"
-    jes_adj.loc["pharmacy"].iloc[j-1] = cohen_kappa_dataset(anno_1, anno_2)
-
-print(adj_gold)
-
-jen_gold.to_csv('jenny_gold.csv', index=True)
-jes_gold.to_csv('jessica_gold.csv', index=True)
-adj_gold.to_csv('adjudication_gold.csv', index=True)
+gold_kappa.to_csv('gold_kappa.csv', index=True)
