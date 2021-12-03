@@ -1,0 +1,54 @@
+---
+title: "NER Annotator Agreement"
+author: "Shaandro Sarkar"
+date: "12/2/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r, include=FALSE}
+jen_adj <- read_csv("jenny_adjudication.csv")
+jes_adj <- read_csv("jessica_adjudication.csv")
+jen_jes <- read_csv("jenny_jessica.csv")
+gold <- read_csv("gold_kappa.csv")
+```
+
+## Background
+
+A corpus of medical records was annotated by two annotators.
+The annotators classified named entities into categories, namely
+drug, strength, frequency, route, form, adverse drug event, and reason.
+The annotators also compared their annotations and came to a consensus
+wherever they differed, resulting in an adjudicated set of annotations.
+
+Annotation was conducted in a series of thirteen rounds. 
+In each round, the medical notes were grouped by type
+(consult, pharmacy, discharge summary, general, nursing, and physician).
+The goal of this analysis was to determine the degree of agreement
+between the annotators as well as between each annotator and the adjudication.
+
+## Analysis
+
+Inter-annotator agreement was determined using Cohen's kappa coefficient ($\kappa$),
+a statistic that takes into account the possibility of agreement occurring by chance.
+Values of $\kappa$ greater than $0.8$ are considered to indicate very high agreement
+between annotators.
+
+The $\kappa$-value was calculated for each of the thirteen rounds
+(grouped by type of note) using [brat-kappa](https://github.com/shaandro/brat-kappa),
+a Python package that calculates $\kappa$ for text annotation files in the brat
+standoff format.
+Tables of the $\kappa$-values are presented below.
+All $\kappa$-values are greater than $0.8$, indicating a high degree of agreement
+between annotators.
+
+```{r, echo = FALSE}
+knitr::kable(jen_adj, caption = "Jenny vs. Adjudication")
+knitr::kable(jes_adj, caption = "Jessica vs. Adjudication")
+knitr::kable(jen_jes, caption = "Jenny vs. Jessica")
+```
+
