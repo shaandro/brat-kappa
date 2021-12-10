@@ -31,6 +31,16 @@ In each round, the medical notes were grouped by type
 The goal of this analysis was to determine the degree of agreement
 between the annotators as well as between each annotator and the adjudication.
 
+## Installation and Usage
+
+1. Install [bratlib](https://github.com/swfarnsworth/bratlib):
+   by running `pip install git+https://github.com/swfarnsworth/bratlib.git@v1.0.0`.
+2. Clone [brat-kappa](https://github.com/shaandro/brat-kappa).
+3. Move the directories containing the annotation files for each annotator
+   into the cloned directory from step 2.
+4. Run `analysis.py`. This should generate three `.csv` files,
+   one for each pairwise comparison.
+
 ## Analysis
 
 Inter-annotator agreement was determined using Cohen's kappa coefficient ($\kappa$),
@@ -40,7 +50,7 @@ between annotators.
 
 The $\kappa$-value was calculated for each of the thirteen rounds
 (grouped by type of note) using [brat-kappa](https://github.com/shaandro/brat-kappa),
-a Python package that calculates $\kappa$ for text annotation files in the brat
+a Python script that calculates $\kappa$ for text annotation files in the brat
 standoff format.
 Tables of the $\kappa$-values are presented below.
 All $\kappa$-values are greater than $0.8$, indicating a high degree of agreement

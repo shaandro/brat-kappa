@@ -357,10 +357,19 @@ pre code {
 <p>A corpus of medical records was annotated by two annotators. The annotators classified named entities into categories, namely drug, strength, frequency, route, form, adverse drug event, and reason. The annotators also compared their annotations and came to a consensus wherever they differed, resulting in an adjudicated set of annotations.</p>
 <p>Annotation was conducted in a series of thirteen rounds. In each round, the medical notes were grouped by type (consult, pharmacy, discharge summary, general, nursing, and physician). The goal of this analysis was to determine the degree of agreement between the annotators as well as between each annotator and the adjudication.</p>
 </div>
+<div id="installation-and-usage" class="section level2">
+<h2>Installation and Usage</h2>
+<ol style="list-style-type: decimal">
+<li>Install <a href="https://github.com/swfarnsworth/bratlib">bratlib</a>: by running <code>pip install git+https://github.com/swfarnsworth/bratlib.git@v1.0.0</code>.</li>
+<li>Clone <a href="https://github.com/shaandro/brat-kappa">brat-kappa</a>.</li>
+<li>Move the directories containing the annotation files for each annotator into the cloned directory from step 2.</li>
+<li>Run <code>analysis.py</code>. This should generate three <code>.csv</code> files, one for each pairwise comparison.</li>
+</ol>
+</div>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
 <p>Inter-annotator agreement was determined using Cohen’s kappa coefficient (<span class="math inline">\(\kappa\)</span>), a statistic that takes into account the possibility of agreement occurring by chance. Values of <span class="math inline">\(\kappa\)</span> greater than <span class="math inline">\(0.8\)</span> are considered to indicate very high agreement between annotators.</p>
-<p>The <span class="math inline">\(\kappa\)</span>-value was calculated for each of the thirteen rounds (grouped by type of note) using <a href="https://github.com/shaandro/brat-kappa">brat-kappa</a>, a Python package that calculates <span class="math inline">\(\kappa\)</span> for text annotation files in the brat standoff format. Tables of the <span class="math inline">\(\kappa\)</span>-values are presented below. All <span class="math inline">\(\kappa\)</span>-values are greater than <span class="math inline">\(0.8\)</span>, indicating a high degree of agreement between annotators.</p>
+<p>The <span class="math inline">\(\kappa\)</span>-value was calculated for each of the thirteen rounds (grouped by type of note) using <a href="https://github.com/shaandro/brat-kappa">brat-kappa</a>, a Python script that calculates <span class="math inline">\(\kappa\)</span> for text annotation files in the brat standoff format. Tables of the <span class="math inline">\(\kappa\)</span>-values are presented below. All <span class="math inline">\(\kappa\)</span>-values are greater than <span class="math inline">\(0.8\)</span>, indicating a high degree of agreement between annotators.</p>
 <table>
 <caption>Jenny vs. Adjudication</caption>
 <thead>
